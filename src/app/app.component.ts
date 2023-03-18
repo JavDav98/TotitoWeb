@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'TotitoWeb';
+  // 0->no jugado, 1->equis, 2->circulo
+  tablero: number[][] = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ]
+
+  actuar(fila: number, columna: number){
+    console.log(fila,columna)
+
+  }
+
+
 }
