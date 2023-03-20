@@ -1,4 +1,5 @@
 import { Component, Input} from '@angular/core';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-tablero',
@@ -20,35 +21,124 @@ export class TableroComponent {
   ]
 
   mover(fila: number, columna: number, player: String){
-    if (this.jugadorActual==="humano"){
-      this.tablero[fila][columna] = 2;
-      this.movimientoH.push([fila,  columna]);
-      console.log(this.tablero)
-    }else {
-      this.tablero[fila][columna] = 1;
-      this.movimientoPC.push([fila,  columna]);
+    if (this.tablero[0].includes(0)||this.tablero[1].includes(0)||this.tablero[2].includes(0)) {
+      if (this.winer == "" && this.tablero[fila][columna] === 0) {
+        if (this.jugadorActual==="humano"){
+          this.tablero[fila][columna] = 2;
+          this.movimientoH.push([fila,  columna]);
+          console.log(this.tablero)
+          setTimeout(() => {
+            this.validarGanador(this.jugadorActual)
+            this.jugadorActual = "PC";
+            this.moverPC(this.jugadorActual)
+          }, 100);
+        }
+      }
+    }else if(this.winer == ""){
+      alert("Es un empate")
     }
-    this.validarGanador();
+
   }
 
-  validarGanador(){
-    if (this.tablero[0][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[2][2]){
-      alert(this.tablero[0][0])
-    }else if (this.tablero[2][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[0][2]){
-      alert(this.tablero[2][0])
-    }else if (this.tablero[0][0]===this.tablero[0][1]&&this.tablero[0][1]===this.tablero[0][2]){
-      alert(this.tablero[0][0])
-    }else if (this.tablero[1][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[1][2]){
-      alert(this.tablero[1][0])
-    }else if (this.tablero[2][0]===this.tablero[2][1]&&this.tablero[2][1]===this.tablero[2][2]){
-      alert(this.tablero[2][0])
-    }else if (this.tablero[0][0]===this.tablero[1][0]&&this.tablero[1][0]===this.tablero[2][0]){
-      alert(this.tablero[0][0])
-    }else if (this.tablero[0][1]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[2][1]){
-      alert(this.tablero[0][1])
-    }else if (this.tablero[0][2]===this.tablero[1][2]&&this.tablero[1][2]===this.tablero[2][2]){
-      alert(this.tablero[0][2])
+  moverPC(player: String){
+    if (this.tablero[0].includes(0)||this.tablero[1].includes(0)||this.tablero[2].includes(0)) {
+      let fila = Math.floor(Math.random() * 3);
+      let columna = Math.floor(Math.random() * 3);
+      if (this.winer === "" && this.jugadorActual === "PC"){
+        if (this.tablero[fila][columna] === 0){
+            this.tablero[fila][columna] = 1;
+            this.movimientoPC.push([fila,  columna]);
+          }else{
+            this.moverPC(this.jugadorActual)
+          }
+          this.jugadorActual="humano"
+        }
+    }else if(this.winer == ""){
+      alert("Es un empate")
     }
   }
+
+  validarGanador(p: String){
+    if (this.winer===""){
+      if (this.tablero[0][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[2][2]&&this.tablero[2][2]!==0){
+        if (this.tablero[0][0]===1){
+          this.winer = "PC";
+          alert("¡Perdiste!")
+        }else{
+          this.winer = p;
+          alert("¡Ganaste!")
+        }
+      }else if (this.tablero[2][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[0][2]&&this.tablero[0][2]!==0){
+        if (this.tablero[2][0]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }else if (this.tablero[2][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[0][2]&&this.tablero[0][2]!==0){
+        if (this.tablero[2][0]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }else if (this.tablero[0][0]===this.tablero[0][1]&&this.tablero[0][1]===this.tablero[0][2]&&this.tablero[0][2]!==0){
+        if (this.tablero[0][0]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }else if (this.tablero[1][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[1][2]&&this.tablero[1][2]!==0){
+        if (this.tablero[1][0]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }else if (this.tablero[2][0]===this.tablero[2][1]&&this.tablero[2][1]===this.tablero[2][2]&&this.tablero[2][2]!==0){
+        if (this.tablero[2][0]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }else if (this.tablero[0][0]===this.tablero[1][0]&&this.tablero[1][0]===this.tablero[2][0]&&this.tablero[2][0]!==0){
+        if (this.tablero[0][0]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }else if (this.tablero[0][1]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[2][1]&&this.tablero[2][1]!==0){
+        if (this.tablero[0][1]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }else if (this.tablero[0][2]===this.tablero[1][2]&&this.tablero[1][2]===this.tablero[2][2]&&this.tablero[2][2]!==0){
+        if (this.tablero[0][2]===1){
+          this.winer = "PC";
+          alert(this.winer)
+        }else{
+          this.winer = p;
+          alert(this.winer)
+        }
+      }
+      if (this.winer != ""){
+        console.log(`Movimientos del jugador ${this.movimientoH[0]}`)
+        console.log(`Movimientos del jugador ${this.movimientoPC[1]}`)
+      }
+    }
+  }
+
 
 }
