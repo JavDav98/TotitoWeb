@@ -71,39 +71,39 @@ export class TableroComponent {
       }else if (this.tablero[2][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[0][2]&&this.tablero[0][2]!==0){
         if (this.tablero[2][0]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
-          alert(this.winer)
+          alert("¡Ganaste!")
         }
       }else if (this.tablero[2][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[0][2]&&this.tablero[0][2]!==0){
         if (this.tablero[2][0]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
-          alert(this.winer)
+          alert("¡Ganaste!")
         }
       }else if (this.tablero[0][0]===this.tablero[0][1]&&this.tablero[0][1]===this.tablero[0][2]&&this.tablero[0][2]!==0){
         if (this.tablero[0][0]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
-          alert(this.winer)
+          alert("¡Ganaste!")
         }
       }else if (this.tablero[1][0]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[1][2]&&this.tablero[1][2]!==0){
         if (this.tablero[1][0]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
-          alert(this.winer)
+          alert("¡Ganaste!")
         }
       }else if (this.tablero[2][0]===this.tablero[2][1]&&this.tablero[2][1]===this.tablero[2][2]&&this.tablero[2][2]!==0){
         if (this.tablero[2][0]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
           alert(this.winer)
@@ -111,26 +111,26 @@ export class TableroComponent {
       }else if (this.tablero[0][0]===this.tablero[1][0]&&this.tablero[1][0]===this.tablero[2][0]&&this.tablero[2][0]!==0){
         if (this.tablero[0][0]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
-          alert(this.winer)
+          alert("¡Ganaste!")
         }
       }else if (this.tablero[0][1]===this.tablero[1][1]&&this.tablero[1][1]===this.tablero[2][1]&&this.tablero[2][1]!==0){
         if (this.tablero[0][1]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
-          alert(this.winer)
+          alert("¡Ganaste!")
         }
       }else if (this.tablero[0][2]===this.tablero[1][2]&&this.tablero[1][2]===this.tablero[2][2]&&this.tablero[2][2]!==0){
         if (this.tablero[0][2]===1){
           this.winer = "PC";
-          alert(this.winer)
+          alert("¡Perdiste!")
         }else{
           this.winer = p;
-          alert(this.winer)
+          alert("¡Ganaste!")
         }
       }
       if (this.winer != ""){
