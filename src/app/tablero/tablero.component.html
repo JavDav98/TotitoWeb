@@ -1,0 +1,12 @@
+<div align="center">
+  <table >
+    <tbody>
+    <tr *ngFor="let row of tablero; let i = index">
+      <td *ngFor="let col of row; let c = index" (click)="mover(i, c, 'humano')">
+        <a *ngIf="this.tablero[i][c]===1"><img src="../assets/img/equis.png" height="88" width="88"></a>
+        <a *ngIf="this.tablero[i][c]===2"><img src="../assets/img/circulo.png" height="88" width="88"></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

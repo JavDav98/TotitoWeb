@@ -1,11 +1,33 @@
-<div align="center">
-  <table>
-  <tbody>
-    <tr *ngFor="let row of tablero; let i = index">
-      <td *ngFor="let col of row; let c = index" (click)="actuar(i, c)">
-        <a ><img src="../assets/img/equis.png" height="96" width="96"></a>
-      </td>
-    </tr>
-  </tbody>
-  </table>
+<div style="margin: 10% 10% 15px 10%">
+  <app-tablero></app-tablero>
 </div>
+
+
+<div class="row" align="center">
+  <div class="col-sm-auto ">
+    <div class="form-floating">
+      <input type="email" class="form-control" value="0" disabled>
+      <label>Partidas jugadas</label>
+    </div>
+  </div>
+
+  <div class="col-sm-auto">
+    <div class="form-floating">
+      <input type="email" class="form-control" value="0" disabled>
+      <label >Juegos ganados</label>
+    </div>
+  </div>
+
+  <div class="col-sm-auto">
+    <div class="form-floating">
+      <input type="email" class="form-control" value="0" disabled>
+      <label >Juegos perdidos</label>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 15px 20px 20px 20px" align="center">
+  <button type="button" class="btn btn-primary">Jugar de nuevo</button>
+  <button type="button" class="btn btn-secondary">Resetear lo aprendido</button>
+</div>
+

@@ -1,0 +1,4 @@
+interface JuegoModel{
+  prewiner: String;
+
+}

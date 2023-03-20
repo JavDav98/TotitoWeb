@@ -1,0 +1,17 @@
+button {
+  margin: 5px;
+}
+
+.resultados {
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-sm-auto{
+  margin-top: 5px;
+  width: 170px;
+}
