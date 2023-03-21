@@ -1,33 +1,40 @@
 <div style="margin: 5% 0% 15px 0%">
-  <app-tablero></app-tablero>
+  <app-tablero (gameOverEvent)="contarPartidas($event)" #tablero></app-tablero>
 </div>
 
 
 <div class="row" align="center">
   <div class="col-sm-auto ">
     <div class="form-floating">
-      <input type="email" class="form-control" value="0" disabled>
+      <input type="email" class="form-control" value="{{jugadas}}" disabled>
       <label>Partidas jugadas</label>
     </div>
   </div>
 
   <div class="col-sm-auto">
     <div class="form-floating">
-      <input type="email" class="form-control" value="0" disabled>
-      <label >Juegos ganados</label>
+      <input type="email" class="form-control" value="{{ganadas}}" disabled>
+      <label >Victorias</label>
     </div>
   </div>
 
   <div class="col-sm-auto">
     <div class="form-floating">
-      <input type="email" class="form-control" value="0" disabled>
-      <label >Juegos perdidos</label>
+      <input type="email" class="form-control" value="{{perdidos}}" disabled>
+      <label >Derrotas</label>
+    </div>
+  </div>
+
+  <div class="col-sm-auto">
+    <div class="form-floating">
+      <input type="email" class="form-control" value="{{empates}}" disabled>
+      <label >Empates</label>
     </div>
   </div>
 </div>
 
 <div style="margin: 15px 20px 20px 20px" align="center">
-  <button type="button" class="btn btn-primary">Jugar de nuevo</button>
+  <button type="button" class="btn btn-primary" (click)="nuevaPartida()">Jugar de nuevo</button>
   <button type="button" class="btn btn-secondary">Resetear lo aprendido</button>
 </div>
 
