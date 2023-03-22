@@ -16,7 +16,7 @@ export class AppComponent {
 
   contarPartidas(partida: any){
     if (partida.winPlayer == "PC"){
-      this.historicoWiner.push([partida])
+      this.historicoWiner.push(partida)
       this.perdidos++;
     }else if(partida.winPlayer == "humano"){
       this.historicoWiner.push(partida)

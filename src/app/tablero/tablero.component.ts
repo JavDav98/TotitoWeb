@@ -47,7 +47,6 @@ export class TableroComponent implements OnInit{
         if (this.jugadorActual===player){
           this.tablero[fila][columna] = 2;
           this.movimientoH.push([fila,  columna]);
-          console.log(this.tablero)
           setTimeout(() => {
             this.validarGanador(this.jugadorActual)
             this.jugadorActual = "PC";
@@ -197,9 +196,6 @@ export class TableroComponent implements OnInit{
           if (this.tablero[f][c] == p.tablero[f][c] && this.tablero[f][c]!=0){
             punteado.punto++;
           }
-          //console.log("Problema")
-          //console.log(p)
-          //console.log("Aca termina **********")
         }
       }
       if (mayorPuntaje < punteado.punto){
@@ -209,7 +205,7 @@ export class TableroComponent implements OnInit{
       partidaspunteadas.push(punteado);
     }
 
-    let partProbables = partidaspunteadas.filter(partida => partida.punto === 0);
+    let partProbables = partidaspunteadas.filter(partida => partida.punto === mayorPuntaje);
     console.log("Partidas punteadas")
     console.log(partidaspunteadas)
     console.log("Terminan *********")
