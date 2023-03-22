@@ -8,6 +8,7 @@ import {TableroComponent} from "./tablero/tablero.component";
 })
 export class AppComponent {
   @ViewChild('tablero') tableroComponent!: TableroComponent;
+  historicoWiner: any[] = [];
   perdidos: number = 0;
   ganadas: number = 0;
   empates: number = 0;
@@ -15,8 +16,10 @@ export class AppComponent {
 
   contarPartidas(partida: any){
     if (partida.winPlayer == "PC"){
+      this.historicoWiner.push([partida])
       this.perdidos++;
     }else if(partida.winPlayer == "humano"){
+      this.historicoWiner.push(partida)
       this.ganadas++;
     }else{
       this.empates++;
@@ -25,7 +28,7 @@ export class AppComponent {
   }
 
   nuevaPartida(){
-    this.tableroComponent.ngOnInit();
+    this.tableroComponent.refresh(this.historicoWiner);
   }
 
 }
