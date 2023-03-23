@@ -198,6 +198,19 @@ export class TableroComponent implements OnInit{
           }
         }
       }
+
+      let movWin: any;
+      if  (p.winPlayer == "PC"){
+        movWin = p.movPC
+      }else {
+        movWin = p.movH
+      }
+
+      for (let i = 0; i <  this.movimientoPC.length; i++){
+        if  (this.movimientoPC[i] == movWin[i]){
+          punteado.punto++;
+        }
+      }
       if (mayorPuntaje < punteado.punto){
         mayorPuntaje = punteado.punto;
       }
