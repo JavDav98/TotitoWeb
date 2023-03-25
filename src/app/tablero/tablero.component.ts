@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PartidaModel} from "../model/partida.model";
 import {assertCompatibleAngularVersion} from "@angular-devkit/build-angular/src/utils/version";
+import {logMessages} from "@angular-devkit/build-angular/src/builders/browser-esbuild/esbuild";
 
 @Component({
   selector: 'app-tablero',
@@ -10,21 +11,21 @@ import {assertCompatibleAngularVersion} from "@angular-devkit/build-angular/src/
 export class TableroComponent implements OnInit{
 
   @Output() gameOverEvent = new EventEmitter<PartidaModel>();
-  jugadorActual: String = "humano";
+  jugadorActual: String = "O";
   movimientoH: any[] = [];
   movimientoPC: any[] = [];
-  winer: String = "";
+  winer: String = '';
   partida: any = {};
   historialPartidas = new Array<any>;
-  player1: String = "humano"
+  player1: String = "O"
   jugada: any = [];
   movjugada: number = 0;
 
   // 0->no jugado, 1->equis-PC, 2->circulo-Humano
-  tablero: number[][] = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
+  tablero: any[][] = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
   ]
 
   ngOnInit() {
@@ -35,18 +36,93 @@ export class TableroComponent implements OnInit{
     this.winer = "";
     this.partida = {};
     this.tablero = [
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0]
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
     ]
-    this.moverPC(this.jugadorActual)
+    if (this.jugadorActual == 'X'){
+      this.moverPC()
+    }
+    //this.moverPC(this.jugadorActual)
   }
 
   refresh(historico: Array<any>){
     this.ngOnInit();
     this.historialPartidas = historico;
   }
-  mover(fila: number, columna: number, player: String){
+
+  realizarMovimiento(fila: number, columna: number) {
+    if (this.tablero[fila][columna] === '') {
+      this.tablero[fila][columna] = this.jugadorActual;
+      setTimeout(() => {
+        this.hayGanador()
+        this.jugadorActual = (this.jugadorActual === 'O') ? 'X' : 'O';
+        if (this.jugadorActual == 'X' && this.winer == ''){
+          this.moverPC()
+        }
+      }, 100);
+    }
+    if (!this.tablero[0].includes('')&&!this.tablero[1].includes('')&&!this.tablero[2].includes('')){
+      alert('¡Es un empate¡')
+    }
+  }
+
+  moverPC(){
+    let fila = Math.floor(Math.random() * 3);
+    let columna = Math.floor(Math.random() * 3);
+    if (this.tablero[fila][columna] === '') {
+      this.realizarMovimiento(fila, columna);
+    }else if(this.hayEspaciosVacios()){
+      this.moverPC()
+    }
+  }
+
+  hayGanador(): boolean {
+    // Comprueba si hay un ganador en las filas
+    for (let fila = 0; fila < 3; fila++) {
+      if (this.tablero[fila][0] === this.tablero[fila][1] && this.tablero[fila][1] === this.tablero[fila][2] && this.tablero[fila][0] !== '') {
+        this.winer = (this.tablero[fila][0] == 'X') ? 'O': 'X';
+        (this.winer = 'X') ? alert('¡Ganaste! filas') : alert('¡Perdisde! filas')
+        return true;
+      }
+    }
+
+    // Comprueba si hay un ganador en las columnas
+    for (let columna = 0; columna < 3; columna++) {
+      if (this.tablero[0][columna] === this.tablero[1][columna] && this.tablero[1][columna] === this.tablero[2][columna] && this.tablero[0][columna] !== '') {
+        this.winer = (this.tablero[0][columna] == 'X') ? 'O': 'X';
+        (this.winer = 'X') ? alert('¡Ganaste! columna') : alert('¡Perdisde! columna')
+        return true;
+      }
+    }
+
+    // Comprueba si hay un ganador en las diagonales
+    if (this.tablero[0][0] === this.tablero[1][1] && this.tablero[1][1] === this.tablero[2][2] && this.tablero[0][0] !== '') {
+      this.winer = (this.tablero[0][0] == 'X') ? 'O': 'X';
+      (this.winer = 'X') ? alert('¡Ganaste! diagonal') : alert('¡Perdisde! diagonal')
+      return true;
+    }
+    if (this.tablero[0][2] === this.tablero[1][1] && this.tablero[1][1] === this.tablero[2][0] && this.tablero[0][2] !== '') {
+      this.winer = (this.tablero[0][2] == 'X') ? 'O': 'X';
+      (this.winer = 'X') ? alert('¡Ganaste! diagonal') : alert('¡Perdisde! diagonal')
+      return true;
+    }
+
+    return false;
+  }
+
+  hayEspaciosVacios(): boolean {
+    for (let fila = 0; fila < 3; fila++) {
+      for (let columna = 0; columna < 3; columna++) {
+        if (this.tablero[fila][columna] === '') {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /*mover(fila: number, columna: number, player: String){
       if (this.winer === "" && this.tablero[fila][columna] === 0) {
         if (this.jugadorActual===player){
           this.tablero[fila][columna] = 2;
@@ -259,7 +335,7 @@ export class TableroComponent implements OnInit{
       this.jugadorActual = "humano"
 
     }
-/*
+/!*
     let mayorPuntaje = 0;
     let partidaspunteadas: any[] = [];
 
@@ -306,7 +382,7 @@ export class TableroComponent implements OnInit{
     let partProbables = partidaspunteadas.filter(partida => partida.punto === mayorPuntaje);
     console.log("Partidas punteadas")
     console.log(partProbables)
-    console.log("Terminan *********")*/
+    console.log("Terminan *********")*!/
   }
 
   prepDataPartida(movH: any, movPC: any, winPlayer: String, movWin: any){
@@ -317,7 +393,7 @@ export class TableroComponent implements OnInit{
     this.partida.tablero = this.tablero;
     this.partida.player1 = this.player1
     this.gameOverEvent.emit(this.partida);
-  }
+  }*/
 
 
 }
